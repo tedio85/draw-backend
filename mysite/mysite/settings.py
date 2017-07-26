@@ -123,5 +123,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     #normpath(join(SITE_ROOT, 'static')),
     os.path.join(BASE_DIR, "static"),
-    '/Users/tedyu/Documents/Python/draw-backend/mysite/static',
+    '/Users/tedyu/Documents/Python/draw-backend/mysite',
 )

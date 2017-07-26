@@ -1,0 +1,18 @@
+{% load static %}
+{% if target_list %}
+    <ul>
+    {% for target in target_list %}
+        <li>
+        	<p> {{target.target_text}} </p>
+        	<img src="{% static target.target_img.url %}"
+        	     width="50"
+        	     height="50"
+        	     alt="{{target.target_text}}" 
+        	>
+        </li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No targets are available.</p>
+{% endif %}
