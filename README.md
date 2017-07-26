@@ -22,3 +22,11 @@ the format is shown below:
 
 ### /game/over
 stil working on it...
+
+### /game/admin
+The administrator page provided by Django
+Provides a view of all available target texts and images
+
+login with
+UserName:admin
+Password:default1234
