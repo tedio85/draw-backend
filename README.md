@@ -2,22 +2,27 @@
 shows all the targets and images
 
 ### /game/entrance
+
+**GET method**  
 randomly choose 2 pairs of target and image
 the format is shown below:
 
 ```
-<div id="targetUser">fan</div>
-<img id="imageUser"
-	 src="/static/static/game/images/003_5JcHWYV.jpeg" 
- 	 height="180"
- 	 height="174">
+{"imageUser": "static/game/images/003_5JcHWYV.jpeg",  
 
-<div id="targetOpponent">duck</div>
-<img id="imageOpponent"
-	 src="/static/static/game/images/001_8m38uYl.jpeg" 
- 	 height="192"
- 	 height="174">
+"imageOpponent": "static/game/images/001_8m38uYl.jpeg",  
 
+"targetOpponent": "duck",  
+
+"targetUser": "fan"}
+
+```
+
+**POST method**  
+returns the array containing the coordinates representing a stroke  
+
+```
+{"stroke": [0, 1, 2, 3, 4]}
 ```
 
 ### /game/over
