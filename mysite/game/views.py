@@ -49,7 +49,7 @@ def entrance(request):
 
 	elif request.method == 'POST':
 		data = json.loads(request.body.decode('utf-8'))
-		prev_stroke = data[0]['data']['smoothedPointCoordinatePairs']
+		prev_stroke = data[len(data)-1]['data']['smoothedPointCoordinatePairs']
 		data = {
 			'stroke':         AI.predict_stroke(prev_stroke)
 		}
