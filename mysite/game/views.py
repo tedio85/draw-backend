@@ -19,7 +19,7 @@ class IndexView(generic.ListView):
 		"""
 		return Target.objects.all()
 
-@csrf_exempt 
+@csrf_exempt
 def entrance(request):
 	def get_queryset():
 		"""
@@ -30,7 +30,7 @@ def entrance(request):
 			t2 = Target.objects.order_by('?').last()
 			if t1!=t2:
 				break
-		
+
 		return [t1, t2]
 
 	"""
@@ -49,14 +49,10 @@ def entrance(request):
 
 	elif request.method == 'POST':
 		data = json.loads(request.body.decode('utf-8'))
-		prev_stroke = data['stroke']
+		prev_stroke = data[0]['data']['smoothedPointCoordinatePairs']
 		data = {
 			'stroke':         AI.predict_stroke(prev_stroke)
 		}
-
-	return JsonResponse(data)
-
-
-
-
-
+		response = JsonResponse(data)
+		response['Access-Control-Allow-Origin'] = '*'
+	return response
