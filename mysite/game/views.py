@@ -1,3 +1,5 @@
+import json
+
 from django.http import JsonResponse
 from django.views import generic
 from django.views.decorators.csrf import csrf_exempt
@@ -5,9 +7,8 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 
 from game.models import Target
 
-from game.ai import AI
-
-import json
+import numpy as np
+from game.srnn_model.model_ready import Model_Init
 
 class IndexView(generic.ListView):
 	template_name = 'game/index.html'
@@ -21,6 +22,7 @@ class IndexView(generic.ListView):
 
 @csrf_exempt
 def entrance(request):
+
 	def get_queryset():
 		"""
 		Return 2 targets, one for user, one for opponent
@@ -49,10 +51,22 @@ def entrance(request):
 
 	elif request.method == 'POST':
 		data = json.loads(request.body.decode('utf-8'))
-		prev_stroke = data[len(data)-1]['data']['smoothedPointCoordinatePairs']
+		data_len = len(data)
+		prev_stroke = np.zeros((0,2))
+		for i in range(data_len):
+			line = data[i]['data']['pointCoordinatePairs']
+			prev_stroke = np.vstack((prev_stroke, line))
+
 		data = {
-			'stroke':         AI.predict_stroke(prev_stroke)
+			#'stroke':         AI.predict_stroke(prev_stroke)
+			'stroke':          model.predict(prev_stroke)
 		}
 		response = JsonResponse(data)
 		response['Access-Control-Allow-Origin'] = '*'
 	return response
+
+
+# initialize SketchRNN model
+global model
+model = Model_Init()
+print('model initialized')
